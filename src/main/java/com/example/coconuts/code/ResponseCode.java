@@ -9,7 +9,16 @@ import org.springframework.http.HttpStatus;
 public enum ResponseCode {
     SUCCESS_REGISTER(HttpStatus.OK, "회원가입을 성공했습니다."),
     SUCCESS_LOGIN(HttpStatus.OK, "로그인을 성공했습니다."),
+<<<<<<< HEAD
     ;
+=======
+    SUCCESS_LOGOUT(HttpStatus.OK, "로그아웃에 성공했습니다"),
+    SUCCESS_UPDATE_PROFILE(HttpStatus.OK, "프로필 수정에 성공했습니다."),
+    SUCCESS_GET_PROFILE(HttpStatus.OK, "회원정보를 가져오는데 성공했습니다." ),
+    SUCCESS_GET_USER_LIST(HttpStatus.OK, "모든 회원을 가져오는데 성공했습니다.");
+
+
+>>>>>>> 3753396 (회원가입 및 로그인)
     private final HttpStatus status;
     private final String message;
 }
