@@ -59,10 +59,21 @@ public class FriendServiceImpl implements FriendService{
         return new AddFriendResponseDto(newFriendShip);
     }
 
+//    @Override
+//    public List<FriendListResponseDto> searchFriends(Integer userId, String query) {
+//        // 검색어로 사용자 찾기
+//        List<UserEntity> searchResults = friendRepository.findNonFriendUsersBySearchCriteria(userId, query);
+//
+//        // DTO로 매필해서 반환하기
+//        return convertToDtoListFromUser(searchResults);
+//    }
+
+
     // DTO에 매핑
-    private List<FriendListResponseDto> convertToDtoList(List<FriendEntity> friendEntities) {
-        return friendEntities.stream()
+    private List<FriendListResponseDto> convertToDtoList(List<FriendEntity> friendList) {
+        return friendList.stream()
                 .map(FriendListResponseDto::new)
                 .collect(Collectors.toList());
     }
+
 }

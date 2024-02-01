@@ -11,4 +11,6 @@ public interface FriendService {
     List<FriendListResponseDto> getFriendList(Integer userId);
 
     AddFriendResponseDto addFriend(Integer userId, String friendLoginId);
+
+//    List<FriendListResponseDto> searchFriends(Integer userId, String query);
 }

@@ -6,7 +6,6 @@ import com.example.coconuts.dto.friend.AddFriendRequestDto;
 import com.example.coconuts.dto.friend.AddFriendResponseDto;
 import com.example.coconuts.dto.friend.FriendListRequestDto;
 import com.example.coconuts.dto.friend.FriendListResponseDto;
-import com.example.coconuts.entity.FriendEntity;
 import com.example.coconuts.service.FriendService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -39,8 +38,18 @@ public class FriendController {
         AddFriendResponseDto res = friendService.addFriend(addFriendRequestDto.getUserId(), addFriendRequestDto.getFriendLoginId());
 
         return ResponseEntity
-                .status(ResponseCode.SUCCESS_GET_FRIEND_LIST.getStatus().value())
-                .body(new ResponseDTO(ResponseCode.SUCCESS_GET_FRIEND_LIST, res));
+                .status(ResponseCode.SUCCESS_ADD_FRIEND.getStatus().value())
+                .body(new ResponseDTO(ResponseCode.SUCCESS_ADD_FRIEND, res));
     }
+
+//    @GetMapping("/search")
+//    public ResponseEntity<ResponseDTO> searchFriends(@RequestParam("q") String query) {
+//
+//        List<FriendListResponseDto> res = friendService.searchFriends(query);
+//
+//        return ResponseEntity
+//                .status(ResponseCode.SUCCESS_SEARCH_FRIENDS.getStatus().value())
+//                .body(new ResponseDTO(ResponseCode.SUCCESS_SEARCH_FRIENDS, null));
+//    }
 
 }
