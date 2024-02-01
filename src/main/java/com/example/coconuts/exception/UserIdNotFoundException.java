@@ -6,6 +6,6 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class FriendIdNotFoundException extends RuntimeException{
+public class UserIdNotFoundException extends RuntimeException{
     private final ErrorCode errorCode;
 }
