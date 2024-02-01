@@ -16,9 +16,9 @@ public class FriendEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // friend id
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.DETACH)
     private UserEntity fromUser;  // 요청을 보낸 사용자
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.DETACH)
     private UserEntity toUser;   // 요청을 받은 사용자
 }
