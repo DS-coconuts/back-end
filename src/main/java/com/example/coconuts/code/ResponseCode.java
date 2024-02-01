@@ -11,6 +11,7 @@ public enum ResponseCode {
     SUCCESS_LOGIN(HttpStatus.OK, "로그인을 성공했습니다."),
 
     SUCCESS_GET_FRIEND_LIST(HttpStatus.OK, "팔로우 목록 불러오기 성공했습니다."),
+    SUCCESS_ADD_FRIEND(HttpStatus.OK, "팔로우 추가를 성공했습니다."),
 
     ;
     private final HttpStatus status;
