@@ -4,16 +4,13 @@ import com.example.coconuts.code.ErrorCode;
 import com.example.coconuts.dto.user.UserLoginDTO;
 import com.example.coconuts.dto.user.UserRegisterDTO;
 import com.example.coconuts.dto.user.UserUpdateDTO;
-import com.example.coconuts.dto.friend.FriendListResponseDto;
 import com.example.coconuts.dto.user.UserListResponseDto;
 import com.example.coconuts.entity.UserEntity;
-import com.example.coconuts.entity.FriendEntity;
 import com.example.coconuts.exception.LoginIdNotFoundException;
 import com.example.coconuts.exception.LoginPasswordNotMatchException;
 import com.example.coconuts.exception.ProfileNotFoundException;
 import com.example.coconuts.projection.user.GetUser;
 import com.example.coconuts.repository.UserRepository;
-import com.example.coconuts.repository.FriendRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -42,14 +42,4 @@ public class FriendController {
                 .body(new ResponseDTO(ResponseCode.SUCCESS_ADD_FRIEND, res));
     }
 
-//    @GetMapping("/search")
-//    public ResponseEntity<ResponseDTO> searchFriends(@RequestParam("q") String query) {
-//
-//        List<FriendListResponseDto> res = friendService.searchFriends(query);
-//
-//        return ResponseEntity
-//                .status(ResponseCode.SUCCESS_SEARCH_FRIENDS.getStatus().value())
-//                .body(new ResponseDTO(ResponseCode.SUCCESS_SEARCH_FRIENDS, null));
-//    }
-
 }

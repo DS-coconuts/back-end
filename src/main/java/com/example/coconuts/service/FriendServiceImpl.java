@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -40,34 +41,24 @@ public class FriendServiceImpl implements FriendService{
                 .orElseThrow(() -> new UserIdNotFoundException(ErrorCode.USERID_NOT_FOUND));
 
         // 팔로우 요청을 받은 사용자 찾기
-        UserEntity friendUser = userRepository.findByLoginId(friendLoginId);
+        Optional<UserEntity> friendUser = userRepository.findByLoginId(friendLoginId);
         if (friendUser == null) {
             throw new UserIdNotFoundException(ErrorCode.USERID_NOT_FOUND);
         }
 
         // 요청 받은 사용자가 친구인지 확인
-        if(friendRepository.existsByFromUserAndToUser(user, friendUser)) {
+        if(friendRepository.existsByFromUserAndToUser(user, friendUser.get())) {
             throw new FriendshipAlreadyExistsException(ErrorCode.FRIENDSHIP_ALREADY_EXISTS);
         }
 
         // 새로운 FriendEntity 생성 및 DB 추가
         FriendEntity newFriendShip = new FriendEntity();
         newFriendShip.setFromUser(user);
-        newFriendShip.setToUser(friendUser);
+        newFriendShip.setToUser(friendUser.get());
         friendRepository.save(newFriendShip);
 
         return new AddFriendResponseDto(newFriendShip);
     }
-
-//    @Override
-//    public List<FriendListResponseDto> searchFriends(Integer userId, String query) {
-//        // 검색어로 사용자 찾기
-//        List<UserEntity> searchResults = friendRepository.findNonFriendUsersBySearchCriteria(userId, query);
-//
-//        // DTO로 매필해서 반환하기
-//        return convertToDtoListFromUser(searchResults);
-//    }
-
 
     // DTO에 매핑
     private List<FriendListResponseDto> convertToDtoList(List<FriendEntity> friendList) {
