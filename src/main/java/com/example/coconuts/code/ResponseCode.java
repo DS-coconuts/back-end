@@ -14,6 +14,12 @@ public enum ResponseCode {
     SUCCESS_GET_FRIEND_LIST(HttpStatus.OK, "팔로우 목록 불러오기 성공했습니다."),
     SUCCESS_ADD_FRIEND(HttpStatus.OK, "팔로우 추가하기를 성공했습니다."),
     ;
+
+    SUCCESS_LOGOUT(HttpStatus.OK, "로그아웃에 성공했습니다"),
+    SUCCESS_UPDATE_PROFILE(HttpStatus.OK, "프로필 수정에 성공했습니다."),
+    SUCCESS_GET_PROFILE(HttpStatus.OK, "회원정보를 가져오는데 성공했습니다." ),
+    SUCCESS_GET_USER_LIST(HttpStatus.OK, "모든 회원을 가져오는데 성공했습니다.");
+
     private final HttpStatus status;
     private final String message;
 }
