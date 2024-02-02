@@ -4,12 +4,10 @@ import com.example.coconuts.code.ResponseCode;
 import com.example.coconuts.dto.ResponseDTO;
 import com.example.coconuts.dto.friend.AddFriendRequestDto;
 import com.example.coconuts.dto.friend.AddFriendResponseDto;
-import com.example.coconuts.dto.friend.FriendListRequestDto;
 import com.example.coconuts.dto.friend.FriendListResponseDto;
 import com.example.coconuts.service.FriendService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
