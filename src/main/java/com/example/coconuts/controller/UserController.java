@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController // JSON 형태의 결과값 반환
-@Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
 public class UserController {

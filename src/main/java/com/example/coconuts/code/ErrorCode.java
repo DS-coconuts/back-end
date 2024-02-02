@@ -22,6 +22,7 @@ public enum ErrorCode {
     PASSWORD_NOT_MATCH(HttpStatus.NOT_FOUND, "비밀번호가 올바르지 않습니다."),
     FRIENDSHIP_ALREADY_EXISTS(HttpStatus.NOT_FOUND, "이미 친구 관계입니다."),
     PROFILE_NOT_FOUND(HttpStatus.NOT_FOUND, "프로필 정보가 없습니다." ),
+    DATA_NOT_FOUND(HttpStatus.NOT_FOUND, "코드에 대한 정보가 없습니다." ),
 
     /*
      * 500 INTERNAL_SERVER_ERROR: 내부 서버 오류
