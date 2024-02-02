@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class FriendListResponseDto {
-
+public class AddFriendResponseDto {
     private Integer friendId;
 
     private Integer toUserId;
@@ -22,7 +21,7 @@ public class FriendListResponseDto {
 
     private Integer toUserGoalCpm;
 
-    public FriendListResponseDto(FriendEntity friend) {
+    public AddFriendResponseDto(FriendEntity friend) {
         this.friendId = friend.getId();
         this.toUserId = friend.getToUser() != null ? friend.getToUser().getId() : null;
         this.toUserLoginId = friend.getToUser() != null ? friend.getToUser().getLoginId() : null;

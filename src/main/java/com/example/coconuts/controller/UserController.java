@@ -5,6 +5,8 @@ import com.example.coconuts.dto.ResponseDTO;
 import com.example.coconuts.dto.user.UserLoginDTO;
 import com.example.coconuts.dto.user.UserRegisterDTO;
 import com.example.coconuts.dto.user.UserUpdateDTO;
+import com.example.coconuts.dto.user.SearchUserRequestDto;
+import com.example.coconuts.dto.user.UserListResponseDto;
 import com.example.coconuts.entity.UserEntity;
 import com.example.coconuts.projection.user.GetUser;
 import com.example.coconuts.service.UserService;
@@ -22,7 +24,7 @@ import java.util.Optional;
 @RestController // JSON 형태의 결과값 반환
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
 
@@ -97,6 +99,16 @@ public class UserController {
                 .status(ResponseCode.SUCCESS_GET_USER_LIST.getStatus().value())
                 .body(new ResponseDTO(ResponseCode.SUCCESS_GET_USER_LIST, res));
 
+    }
+  
+   @GetMapping("/search")
+    public ResponseEntity<ResponseDTO> searchUsers(@RequestParam("q") String query,
+                                                   @RequestBody SearchUserRequestDto searchUserRequestDto) {
+        List<UserListResponseDto> res = userService.searchUsers(searchUserRequestDto.getUserId(), query);
+
+        return ResponseEntity
+                .status(ResponseCode.SUCCESS_SEARCH_USERS.getStatus().value())
+                .body(new ResponseDTO(ResponseCode.SUCCESS_SEARCH_USERS, res));
     }
 
 

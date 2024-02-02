@@ -4,17 +4,22 @@ import com.example.coconuts.code.ErrorCode;
 import com.example.coconuts.dto.user.UserLoginDTO;
 import com.example.coconuts.dto.user.UserRegisterDTO;
 import com.example.coconuts.dto.user.UserUpdateDTO;
+import com.example.coconuts.dto.friend.FriendListResponseDto;
+import com.example.coconuts.dto.user.UserListResponseDto;
 import com.example.coconuts.entity.UserEntity;
+import com.example.coconuts.entity.FriendEntity;
 import com.example.coconuts.exception.LoginIdNotFoundException;
 import com.example.coconuts.exception.LoginPasswordNotMatchException;
 import com.example.coconuts.exception.ProfileNotFoundException;
 import com.example.coconuts.projection.user.GetUser;
 import com.example.coconuts.repository.UserRepository;
+import com.example.coconuts.repository.FriendRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -89,6 +94,21 @@ public class UserServiceImpl implements UserService{
         List<UserEntity> users = userRepository.findAll();
 
         return users;
+    }
+ 
+    @Override
+    public List<UserListResponseDto> searchUsers(Integer userId, String query) {
+
+        // 검색어로 사용자 찾기
+        List<UserEntity> searchResults = userRepository.findNonFriendUsersBySearchCriteria(userId, query);
+
+        return convertToDtoList(searchResults);
+    }
+
+    private List<UserListResponseDto> convertToDtoList(List<UserEntity> userList) {
+        return userList.stream()
+                .map(UserListResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     private GetUser EntityToProjectionUser(UserEntity user){
