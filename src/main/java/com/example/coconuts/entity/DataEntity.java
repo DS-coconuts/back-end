@@ -27,7 +27,7 @@ public class DataEntity {
     private String path;
 
     @Column
-    private Long size;
+    private Long size;   // 바이트 단위
 
     @Column
     private String name;

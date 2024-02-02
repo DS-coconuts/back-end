@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController // JSON 형태의 결과값 반환
-@Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/friends")
 public class FriendController {
@@ -23,9 +22,9 @@ public class FriendController {
     private final FriendService friendService;
 
     @GetMapping
-    public ResponseEntity<ResponseDTO> getFriendsList(@RequestBody FriendListRequestDto friendListRequestDto) {
+    public ResponseEntity<ResponseDTO> getFriendsList(@RequestParam("userId") Integer userId) {
 
-        List<FriendListResponseDto> res = friendService.getFriendList(friendListRequestDto.getUserId());
+        List<FriendListResponseDto> res = friendService.getFriendList(userId);
 
         return ResponseEntity
                 .status(ResponseCode.SUCCESS_GET_FRIEND_LIST.getStatus().value())

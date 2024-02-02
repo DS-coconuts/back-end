@@ -2,7 +2,6 @@ package com.example.coconuts.service;
 
 import com.example.coconuts.dto.friend.AddFriendResponseDto;
 import com.example.coconuts.dto.friend.FriendListResponseDto;
-import com.example.coconuts.entity.FriendEntity;
 
 import java.util.List;
 
