@@ -14,9 +14,11 @@ import lombok.Setter;
 public class FriendEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FRIEND_ID")
     private Integer id; // friend id
 
-    @Column(name = "USER_ID")
-    private Integer userId; // FK
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    private UserEntity fromUser;  // 요청을 보낸 사용자
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    private UserEntity toUser;   // 요청을 받은 사용자
 }

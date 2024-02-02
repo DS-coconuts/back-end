@@ -18,7 +18,6 @@ public class DataEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DATA_ID")
     private Integer id; // data id
 
     @CreatedDate

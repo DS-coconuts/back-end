@@ -20,7 +20,6 @@ public class ScoreEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SCORE_ID")
     private Integer id; // score id
 
     @CreatedDate
@@ -41,10 +40,10 @@ public class ScoreEntity {
     @Column
     private String language;
 
-    @Column(name = "DATA_ID")
-    private Integer dataId;    // FK
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    private DataEntity dataId;    // FK
 
-    @Column(name = "USER_ID")
-    private Integer userId;    // FK
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    private UserEntity userId;    // FK
 
 }
