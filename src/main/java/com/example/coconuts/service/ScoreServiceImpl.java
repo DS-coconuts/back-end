@@ -2,12 +2,17 @@ package com.example.coconuts.service;
 
 import com.example.coconuts.code.ErrorCode;
 import com.example.coconuts.dto.data.DataResponseDto;
+import com.example.coconuts.dto.friend.AddFriendResponseDto;
+import com.example.coconuts.dto.friend.FriendListResponseDto;
+import com.example.coconuts.dto.score.RankResponseDto;
 import com.example.coconuts.dto.score.ScoreRequestDto;
 import com.example.coconuts.dto.score.ScoreResponseDto;
 import com.example.coconuts.entity.DataEntity;
+import com.example.coconuts.entity.FriendEntity;
 import com.example.coconuts.entity.ScoreEntity;
 import com.example.coconuts.entity.UserEntity;
 import com.example.coconuts.exception.DataNotFoundException;
+import com.example.coconuts.exception.LanguageNotFoundException;
 import com.example.coconuts.exception.NotSameLanguageException;
 import com.example.coconuts.exception.UserIdNotFoundException;
 import com.example.coconuts.repository.DataRepository;
@@ -18,6 +23,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,11 +47,6 @@ public class ScoreServiceImpl implements ScoreService {
             throw new DataNotFoundException(ErrorCode.DATA_NOT_FOUND);
         }
 
-        // DTO 언어와 코드의 언어가 일치하는지 확인
-        if(scoreRequestDto.getLanguage() != data.getLanguage()) {
-            throw new NotSameLanguageException(ErrorCode.LANGUAGE_NOT_FOUND);
-        }
-
         // DB 저장하기 위한 Score 엔티티 생성하기
         ScoreEntity score = ScoreEntity.builder()
                 .createdAt(LocalDate.now())
@@ -63,5 +65,24 @@ public class ScoreServiceImpl implements ScoreService {
         return responseDto;
 
     }
+
+    @Override
+    public List<RankResponseDto> getRank(String language) {
+
+        List<ScoreEntity> scoreEntities =  scoreRepository.findByLanguageOrderByCpmDesc(language);
+        if (scoreEntities == null || scoreEntities.isEmpty()) {
+            throw new LanguageNotFoundException(ErrorCode.LANGUAGE_NOT_FOUND);
+        }
+
+        return convertToDtoList(scoreEntities);
+    }
+
+    // DTO에 매핑
+    private List<RankResponseDto> convertToDtoList(List<ScoreEntity> scoreList) {
+        return scoreList.stream()
+                .map(score -> new RankResponseDto(score))
+                .collect(Collectors.toList());
+    }
+
 
 }
