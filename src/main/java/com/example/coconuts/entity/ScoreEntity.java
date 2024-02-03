@@ -1,11 +1,11 @@
 package com.example.coconuts.entity;
 
+import com.example.coconuts.dto.data.DataResponseDto;
+import com.example.coconuts.dto.score.ScoreRequestDto;
+import com.example.coconuts.dto.score.ScoreResponseDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
@@ -16,6 +16,7 @@ import java.time.LocalTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class ScoreEntity {
 
     @Id
@@ -35,7 +36,7 @@ public class ScoreEntity {
     private Integer acc;
 
     @Column
-    private LocalTime countTime;
+    private Integer countTime;
 
     @Column
     private String language;
@@ -45,5 +46,4 @@ public class ScoreEntity {
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     private UserEntity userId;    // FK
-
 }
