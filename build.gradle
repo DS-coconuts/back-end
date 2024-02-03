@@ -35,6 +35,12 @@ dependencies {
 	implementation 'mysql:mysql-connector-java:8.0.32'
 
 
+	//aws
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'
+	implementation 'org.springframework.cloud:spring-cloud-aws-context:1.2.1.RELEASE'
+	implementation 'org.springframework.cloud:spring-cloud-aws-autoconfigure:1.2.1.RELEASE'
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+
 }
 
 tasks.named('test') {

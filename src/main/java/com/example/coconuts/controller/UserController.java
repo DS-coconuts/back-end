@@ -2,6 +2,7 @@ package com.example.coconuts.controller;
 
 import com.example.coconuts.code.ResponseCode;
 import com.example.coconuts.dto.ResponseDTO;
+import com.example.coconuts.dto.s3.S3FileDTO;
 import com.example.coconuts.dto.user.UserLoginDTO;
 import com.example.coconuts.dto.user.UserRegisterDTO;
 import com.example.coconuts.dto.user.UserUpdateDTO;
@@ -9,11 +10,15 @@ import com.example.coconuts.dto.user.SearchUserRequestDto;
 import com.example.coconuts.dto.user.UserListResponseDto;
 import com.example.coconuts.entity.UserEntity;
 import com.example.coconuts.projection.user.GetUser;
+import com.example.coconuts.service.AmazonS3Service;
 import com.example.coconuts.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,6 +29,7 @@ import java.util.Optional;
 @RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
+    private final AmazonS3Service amazonS3Service;
 
     @PostMapping("/register")
     public ResponseEntity<ResponseDTO> register(@RequestBody UserRegisterDTO userRegisterDTO){
@@ -56,16 +62,29 @@ public class UserController {
     @PutMapping("/update")
     public ResponseEntity<ResponseDTO> update(
             @RequestParam(value = "userId") Integer userId,
-            @RequestParam(value="image", required = false) String profileImage,
-            @RequestBody UserUpdateDTO userUpdateDTO) throws IOException {
+            @RequestParam(value="image", required = false) MultipartFile profileImage,
+            @RequestParam(value = "info") String userUpdateDTO) throws IOException {
+
+        // mapper
+        ObjectMapper mapper = new ObjectMapper();
+        UserUpdateDTO mapperUserUpdateDTO = mapper.readValue(userUpdateDTO, UserUpdateDTO.class);
 
         // 이미지 등록
-        if (profileImage != null){
-            userUpdateDTO.setImage(profileImage);
+        if (profileImage != null && profileImage.getResource().contentLength() != 0){
+
+            // 예전 유저의 프로필 이미지 삭제
+            String res = amazonS3Service.deleteFile(userId);
+            System.out.println(res);
+
+            // 이미지 업로드
+            S3FileDTO uploadFiles = amazonS3Service.uploadFile(profileImage);
+
+            // updateUserProfileDTO 객체에 프로필 정보 설정
+            mapperUserUpdateDTO.setImage(uploadFiles.getUploadFileUrl());
         }
 
         // 정보 업데이트
-        UserEntity res = userService.updateProfile(userId, userUpdateDTO);
+        UserEntity res = userService.updateProfile(userId, mapperUserUpdateDTO);
 
         return ResponseEntity
                 .status(ResponseCode.SUCCESS_UPDATE_PROFILE.getStatus().value())
