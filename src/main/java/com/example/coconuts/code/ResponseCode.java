@@ -20,6 +20,8 @@ public enum ResponseCode {
     SUCCESS_GET_USER_LIST(HttpStatus.OK, "모든 회원을 가져오는데 성공했습니다."),
 
     SUCCESS_GET_DATA(HttpStatus.OK, "랜덤으로 데이터 가져오기를 성공했습니다."),
+
+    SUCCESS_CREATE_SCORE(HttpStatus.OK, "타자 연습 결과 저장하기를 성공했습니다."),
     ;
 
     private final HttpStatus status;

@@ -42,8 +42,8 @@ public class ScoreEntity {
     private String language;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
-    private DataEntity dataId;    // FK
+    private DataEntity data;    // FK
 
     @ManyToOne(cascade = CascadeType.REMOVE)
-    private UserEntity userId;    // FK
+    private UserEntity user;    // FK
 }

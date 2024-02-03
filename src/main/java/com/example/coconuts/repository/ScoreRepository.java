@@ -1,6 +1,5 @@
 package com.example.coconuts.repository;
 
-import com.example.coconuts.entity.DataEntity;
 import com.example.coconuts.entity.ScoreEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
