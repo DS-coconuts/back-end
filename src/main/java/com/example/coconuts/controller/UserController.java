@@ -8,6 +8,8 @@ import com.example.coconuts.dto.user.UserRegisterDTO;
 import com.example.coconuts.dto.user.UserUpdateDTO;
 import com.example.coconuts.dto.user.SearchUserRequestDto;
 import com.example.coconuts.dto.user.UserListResponseDto;
+import com.example.coconuts.entity.DataEntity;
+import com.example.coconuts.entity.ScoreEntity;
 import com.example.coconuts.entity.UserEntity;
 import com.example.coconuts.projection.user.GetUser;
 import com.example.coconuts.service.AmazonS3Service;
@@ -109,6 +111,22 @@ public class UserController {
             return ResponseEntity
                     .status(ResponseCode.SUCCESS_GET_USER_LIST.getStatus().value())
                     .body(new ResponseDTO(ResponseCode.SUCCESS_GET_USER_LIST, "No users found"));
+        }
+
+        return ResponseEntity
+                .status(ResponseCode.SUCCESS_GET_USER_LIST.getStatus().value())
+                .body(new ResponseDTO(ResponseCode.SUCCESS_GET_USER_LIST, res));
+
+    }
+
+    @GetMapping("/{userId}/scores")
+    public ResponseEntity<ResponseDTO> getUserScoresList(Integer userId){
+        List<ScoreEntity> res = userService.getUserScoreList(userId);
+
+        if(res.isEmpty()) {
+            return ResponseEntity
+                    .status(ResponseCode.SUCCESS_GET_USER_SCORES_LIST.getStatus().value())
+                    .body(new ResponseDTO(ResponseCode.SUCCESS_GET_USER_SCORES_LIST, "No users found"));
         }
 
         return ResponseEntity

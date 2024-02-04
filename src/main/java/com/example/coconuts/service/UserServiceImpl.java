@@ -5,11 +5,14 @@ import com.example.coconuts.dto.user.UserLoginDTO;
 import com.example.coconuts.dto.user.UserRegisterDTO;
 import com.example.coconuts.dto.user.UserUpdateDTO;
 import com.example.coconuts.dto.user.UserListResponseDto;
+import com.example.coconuts.entity.DataEntity;
+import com.example.coconuts.entity.ScoreEntity;
 import com.example.coconuts.entity.UserEntity;
 import com.example.coconuts.exception.LoginIdNotFoundException;
 import com.example.coconuts.exception.LoginPasswordNotMatchException;
 import com.example.coconuts.exception.ProfileNotFoundException;
 import com.example.coconuts.projection.user.GetUser;
+import com.example.coconuts.repository.DataRepository;
 import com.example.coconuts.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
+    private final ScoreRe dataRepository;
 
     @Override
     public GetUser register(UserRegisterDTO userRegisterDTO) {
@@ -92,6 +96,8 @@ public class UserServiceImpl implements UserService{
 
         return users;
     }
+
+
  
     @Override
     public List<UserListResponseDto> searchUsers(Integer userId, String query) {
@@ -100,6 +106,13 @@ public class UserServiceImpl implements UserService{
         List<UserEntity> searchResults = userRepository.findNonFriendUsersBySearchCriteria(userId, query);
 
         return convertToDtoList(searchResults);
+    }
+
+    @Override
+    public List<ScoreEntity> getUserScoreList(Integer userId) {
+
+        List<ScoreEntity> scores = dataRepository.
+        return null;
     }
 
     private List<UserListResponseDto> convertToDtoList(List<UserEntity> userList) {

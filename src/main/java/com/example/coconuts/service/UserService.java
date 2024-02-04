@@ -4,6 +4,7 @@ import com.example.coconuts.dto.user.UserLoginDTO;
 import com.example.coconuts.dto.user.UserRegisterDTO;
 import com.example.coconuts.dto.user.UserUpdateDTO;
 import com.example.coconuts.dto.user.UserListResponseDto;
+import com.example.coconuts.entity.DataEntity;
 import com.example.coconuts.entity.UserEntity;
 import com.example.coconuts.projection.user.GetUser;
 
@@ -24,4 +25,6 @@ public interface UserService {
     List<UserEntity> getUserList();
   
     List<UserListResponseDto> searchUsers(Integer userId, String query);
+
+    List<DataEntity> getUserScoreList(Integer userId);
 }
