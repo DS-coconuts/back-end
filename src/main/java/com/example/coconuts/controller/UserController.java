@@ -107,31 +107,21 @@ public class UserController {
     public ResponseEntity<ResponseDTO> getStudentList(){
         List<UserEntity> res = userService.getUserList();
 
-        if(res.isEmpty()) {
-            return ResponseEntity
-                    .status(ResponseCode.SUCCESS_GET_USER_LIST.getStatus().value())
-                    .body(new ResponseDTO(ResponseCode.SUCCESS_GET_USER_LIST, "No users found"));
-        }
-
         return ResponseEntity
                 .status(ResponseCode.SUCCESS_GET_USER_LIST.getStatus().value())
                 .body(new ResponseDTO(ResponseCode.SUCCESS_GET_USER_LIST, res));
 
     }
 
-    @GetMapping("/{userId}/scores")
-    public ResponseEntity<ResponseDTO> getUserScoresList(Integer userId){
+    @GetMapping("/scores")
+    public ResponseEntity<ResponseDTO> getUserScoresList(@RequestParam(value = "userId")Integer userId){
+        System.out.println(userId);
         List<ScoreEntity> res = userService.getUserScoreList(userId);
 
-        if(res.isEmpty()) {
-            return ResponseEntity
-                    .status(ResponseCode.SUCCESS_GET_USER_SCORES_LIST.getStatus().value())
-                    .body(new ResponseDTO(ResponseCode.SUCCESS_GET_USER_SCORES_LIST, "No users found"));
-        }
 
         return ResponseEntity
-                .status(ResponseCode.SUCCESS_GET_USER_LIST.getStatus().value())
-                .body(new ResponseDTO(ResponseCode.SUCCESS_GET_USER_LIST, res));
+                .status(ResponseCode.SUCCESS_GET_USER_SCORES_LIST.getStatus().value())
+                .body(new ResponseDTO(ResponseCode.SUCCESS_GET_USER_SCORES_LIST, res));
 
     }
   
