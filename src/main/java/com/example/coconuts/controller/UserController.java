@@ -127,8 +127,8 @@ public class UserController {
   
    @GetMapping("/search")
     public ResponseEntity<ResponseDTO> searchUsers(@RequestParam("q") String query,
-                                                   @RequestBody SearchUserRequestDto searchUserRequestDto) {
-        List<UserListResponseDto> res = userService.searchUsers(searchUserRequestDto.getUserId(), query);
+                                                   @RequestParam("userId") Integer userId) {
+        List<UserListResponseDto> res = userService.searchUsers(userId, query);
 
         return ResponseEntity
                 .status(ResponseCode.SUCCESS_SEARCH_USERS.getStatus().value())
