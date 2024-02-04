@@ -1,17 +1,21 @@
 package com.example.coconuts.service;
 
 import com.example.coconuts.code.ErrorCode;
+import com.example.coconuts.code.ResponseCode;
+import com.example.coconuts.dto.ResponseDTO;
 import com.example.coconuts.dto.user.UserLoginDTO;
 import com.example.coconuts.dto.user.UserRegisterDTO;
 import com.example.coconuts.dto.user.UserUpdateDTO;
 import com.example.coconuts.dto.user.UserListResponseDto;
+import com.example.coconuts.entity.DataEntity;
+import com.example.coconuts.entity.ScoreEntity;
 import com.example.coconuts.entity.UserEntity;
-import com.example.coconuts.exception.LoginIdNotFoundException;
-import com.example.coconuts.exception.LoginPasswordNotMatchException;
-import com.example.coconuts.exception.ProfileNotFoundException;
+import com.example.coconuts.exception.*;
 import com.example.coconuts.projection.user.GetUser;
+import com.example.coconuts.repository.ScoreRepository;
 import com.example.coconuts.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +26,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
+    private final ScoreRepository scoreRepository;
 
     @Override
     public GetUser register(UserRegisterDTO userRegisterDTO) {
@@ -90,8 +95,14 @@ public class UserServiceImpl implements UserService{
     public List<UserEntity> getUserList() {
         List<UserEntity> users = userRepository.findAll();
 
+        if(users.isEmpty())
+            throw new UserNotFoundException(ErrorCode.USER_NOT_FOUND);
+
+
         return users;
     }
+
+
  
     @Override
     public List<UserListResponseDto> searchUsers(Integer userId, String query) {
@@ -99,7 +110,19 @@ public class UserServiceImpl implements UserService{
         // 검색어로 사용자 찾기
         List<UserEntity> searchResults = userRepository.findNonFriendUsersBySearchCriteria(userId, query);
 
+
         return convertToDtoList(searchResults);
+    }
+
+    @Override
+    public List<ScoreEntity> getUserScoreList(Integer userId) {
+
+        List<ScoreEntity> scores = scoreRepository.findByUserId(userId);
+
+        if(scores.isEmpty())
+            throw new ScoreNotFoundException(ErrorCode.SCORE_NOT_FOUND);
+
+        return scores;
     }
 
     private List<UserListResponseDto> convertToDtoList(List<UserEntity> userList) {

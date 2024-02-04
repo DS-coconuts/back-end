@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ScoreRepository extends JpaRepository<ScoreEntity, Integer> {
     List<ScoreEntity> findByLanguageOrderByCpmDesc(String language);
+    List<ScoreEntity> findByUserId(Integer userId);
 }
