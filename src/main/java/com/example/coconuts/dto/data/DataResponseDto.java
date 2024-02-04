@@ -17,8 +17,6 @@ public class DataResponseDto {
 
     private Integer dataId; // data id
 
-    private LocalDate createdAt;
-
     private String path;
 
     private Long size;   // 바이트 단위
@@ -31,7 +29,6 @@ public class DataResponseDto {
 
     public DataResponseDto(DataEntity data) {
         this.dataId = data.getId();
-        this.createdAt = data.getCreatedAt();
         this.path = data.getPath();
         this.size = data.getSize();
         this.name = data.getName();

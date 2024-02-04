@@ -20,9 +20,6 @@ public class DataEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // data id
 
-    @CreatedDate
-    private LocalDate createdAt;
-
     @Column
     private String path;
 
