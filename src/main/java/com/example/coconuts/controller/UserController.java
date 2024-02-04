@@ -6,7 +6,6 @@ import com.example.coconuts.dto.s3.S3FileDTO;
 import com.example.coconuts.dto.user.UserLoginDTO;
 import com.example.coconuts.dto.user.UserRegisterDTO;
 import com.example.coconuts.dto.user.UserUpdateDTO;
-import com.example.coconuts.dto.user.SearchUserRequestDto;
 import com.example.coconuts.dto.user.UserListResponseDto;
 import com.example.coconuts.entity.DataEntity;
 import com.example.coconuts.entity.ScoreEntity;
